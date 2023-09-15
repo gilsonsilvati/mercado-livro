@@ -1,0 +1,30 @@
+######################
+####### CONFIG #######
+######################
+server:
+  port: 8082
+
+######################
+##### DATASOURCE #####
+######################
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/mercadolivro?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
+    username: root
+    password: MySql2023!
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    open-in-view: true
+
+######################
+####### CONFIG #######
+######################
+  output:
+    ansi:
+      enabled: ALWAYS
