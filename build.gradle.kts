@@ -24,6 +24,8 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
 	implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.10")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.0.4")
+	implementation("org.flywaydb:flyway-core:9.16.0")
+	implementation("org.flywaydb:flyway-mysql:9.16.0")
 
 	runtimeOnly("com.mysql:mysql-connector-j:8.0.32")
 
