@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
+import java.math.BigDecimal
 
 @Entity(name = "book")
 data class BookModel(
@@ -17,7 +18,7 @@ data class BookModel(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int? = null,
     var name: String,
-    var price: Double,
+    var price: BigDecimal,
 
     @Enumerated(EnumType.STRING)
     var status: BookStatus? = null,
