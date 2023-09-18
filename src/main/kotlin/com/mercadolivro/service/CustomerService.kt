@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 @Service
 class CustomerService(val customerRepository: CustomerRepository) {
 
-    fun getAll(name: String?): List<CustomerModel> {
+    fun findAll(name: String?): List<CustomerModel> {
 
         name?.let {
             return customerRepository.findByNameContaining(it)

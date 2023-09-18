@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.RestController
 class CustomerController(val customerService: CustomerService) {
 
     @GetMapping
-    fun getAll(@RequestParam name: String?): List<CustomerModel> {
+    fun findAll(@RequestParam name: String?): List<CustomerModel> {
 
-        return customerService.getAll(name)
+        return customerService.findAll(name)
     }
 
     @PostMapping
@@ -35,7 +35,7 @@ class CustomerController(val customerService: CustomerService) {
     }
 
     @GetMapping("{id}")
-    fun getCustomer(@PathVariable id: Int): CustomerModel {
+    fun findById(@PathVariable id: Int): CustomerModel {
 
         return customerService.getById(id)
     }
