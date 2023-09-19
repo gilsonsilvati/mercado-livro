@@ -2,6 +2,7 @@ package com.mercadolivro.repository
 
 import com.mercadolivro.enums.BookStatus
 import com.mercadolivro.model.BookModel
+import com.mercadolivro.model.CustomerModel
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
@@ -9,4 +10,6 @@ import org.springframework.stereotype.Repository
 interface BookRepository : CrudRepository<BookModel, Int> {
 
     fun findByStatus(status: BookStatus): List<BookModel>
+
+    fun findByCustomer(customer: CustomerModel): List<BookModel>
 }
