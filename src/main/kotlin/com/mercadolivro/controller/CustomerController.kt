@@ -2,8 +2,9 @@ package com.mercadolivro.controller
 
 import com.mercadolivro.controller.request.PostCustomerRequest
 import com.mercadolivro.controller.request.PutCustomerRequest
-import com.mercadolivro.extension.toCustomerModel
-import com.mercadolivro.model.CustomerModel
+import com.mercadolivro.controller.response.CustomerResponse
+import com.mercadolivro.extension.toModel
+import com.mercadolivro.extension.toResponse
 import com.mercadolivro.service.CustomerService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -22,22 +23,22 @@ import org.springframework.web.bind.annotation.RestController
 class CustomerController(val customerService: CustomerService) {
 
     @GetMapping
-    fun findAll(@RequestParam name: String?): List<CustomerModel> {
+    fun findAll(@RequestParam name: String?): List<CustomerResponse> {
 
-        return customerService.findAll(name)
+        return customerService.findAll(name).map { it.toResponse() }
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@RequestBody request: PostCustomerRequest) {
 
-        customerService.createOrUpdate(request.toCustomerModel())
+        customerService.createOrUpdate(request.toModel())
     }
 
     @GetMapping("{id}")
-    fun findById(@PathVariable id: Int): CustomerModel {
+    fun findById(@PathVariable id: Int): CustomerResponse {
 
-        return customerService.findById(id)
+        return customerService.findById(id).toResponse()
     }
 
     @PutMapping("{id}")
@@ -45,7 +46,7 @@ class CustomerController(val customerService: CustomerService) {
     fun update(@PathVariable id: Int, @RequestBody request: PutCustomerRequest) {
 
         val customerSaved = customerService.findById(id)
-        customerService.createOrUpdate(request.toCustomerModel(customerSaved))
+        customerService.createOrUpdate(request.toModel(customerSaved))
     }
 
     @DeleteMapping("{id}")
