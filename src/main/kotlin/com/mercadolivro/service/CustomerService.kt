@@ -1,6 +1,7 @@
 package com.mercadolivro.service
 
 import com.mercadolivro.enums.CustomerStatus
+import com.mercadolivro.exception.NotFoundException
 import com.mercadolivro.model.CustomerModel
 import com.mercadolivro.repository.CustomerRepository
 import org.springframework.data.domain.Page
@@ -26,7 +27,8 @@ class CustomerService(val customerRepository: CustomerRepository, val bookServic
 
     fun findById(id: Int): CustomerModel {
 
-        return customerRepository.findById(id).orElseThrow()
+        return customerRepository.findById(id)
+            .orElseThrow { NotFoundException("This resource Customer [$id] not exist", "ML-0002") }
     }
 
     fun delete(id: Int) {

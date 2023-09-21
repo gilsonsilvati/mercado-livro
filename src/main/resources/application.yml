@@ -27,3 +27,9 @@ spring:
   output:
     ansi:
       enabled: ALWAYS
+
+######################
+####### JACKSON #######
+######################
+  jackson:
+    default-property-inclusion: NON_NULL
