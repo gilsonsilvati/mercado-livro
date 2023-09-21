@@ -28,7 +28,7 @@ class BookService(val bookRepository: BookRepository) {
 
     fun findById(id: Int): BookModel {
 
-        return bookRepository.findById(id).orElseThrow()
+        return bookRepository.findById(id).orElseThrow { Exception("This resource does not exist") }
     }
 
     fun delete(id: Int) {
