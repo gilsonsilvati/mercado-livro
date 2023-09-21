@@ -6,6 +6,7 @@ import com.mercadolivro.controller.response.CustomerResponse
 import com.mercadolivro.extension.toModel
 import com.mercadolivro.extension.toResponse
 import com.mercadolivro.service.CustomerService
+import jakarta.validation.Valid
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
@@ -33,7 +34,7 @@ class CustomerController(val customerService: CustomerService) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody request: PostCustomerRequest) {
+    fun create(@Valid @RequestBody request: PostCustomerRequest) {
 
         customerService.createOrUpdate(request.toModel())
     }

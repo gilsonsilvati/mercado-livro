@@ -22,6 +22,7 @@ repositories {
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web:3.1.0")
+	implementation("org.springframework.boot:spring-boot-starter-validation:3.1.0")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
 	implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.10")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.0.4")
