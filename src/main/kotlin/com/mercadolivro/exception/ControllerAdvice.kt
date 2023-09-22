@@ -3,7 +3,6 @@ package com.mercadolivro.exception
 import com.mercadolivro.controller.response.ErrorResponse
 import com.mercadolivro.controller.response.FieldErrorResponse
 import com.mercadolivro.enums.Errors
-import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -50,15 +49,4 @@ class ControllerAdvice {
         return ResponseEntity(error, HttpStatus.UNPROCESSABLE_ENTITY)
     }
 
-    @ExceptionHandler(DataIntegrityViolationException::class)
-    fun handleDataIntegrityViolationException(ex: DataIntegrityViolationException): ResponseEntity<ErrorResponse> {
-
-        val error = ErrorResponse(
-            HttpStatus.UNPROCESSABLE_ENTITY.value(),
-            ex.message ?: "Invalid",
-            "ML-000"
-        )
-
-        return ResponseEntity(error, HttpStatus.UNPROCESSABLE_ENTITY)
-    }
 }

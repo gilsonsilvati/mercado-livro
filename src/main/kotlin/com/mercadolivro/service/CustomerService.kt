@@ -42,4 +42,9 @@ class CustomerService(val customerRepository: CustomerRepository, val bookServic
         createOrUpdate(customer)
     }
 
+    fun emailAvailable(email: String): Boolean {
+
+        return !customerRepository.existsByEmail(email)
+    }
+
 }

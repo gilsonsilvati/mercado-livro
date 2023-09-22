@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository
 interface CustomerRepository : JpaRepository<CustomerModel, Int> {
 
     fun findByNameContaining(name: String, pageable: Pageable): Page<CustomerModel>
+
+    fun existsByEmail(email: String): Boolean
 }
