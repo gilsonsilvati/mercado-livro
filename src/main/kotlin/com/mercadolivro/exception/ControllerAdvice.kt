@@ -1,17 +1,20 @@
 package com.mercadolivro.exception
 
 import com.mercadolivro.controller.response.ErrorResponse
+import com.mercadolivro.controller.response.FieldErrorResponse
+import com.mercadolivro.enums.Errors
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
-import org.springframework.web.context.request.WebRequest
 
 @RestControllerAdvice
 class ControllerAdvice {
 
     @ExceptionHandler(NotFoundException::class)
-    fun handleNotFoundException(ex: NotFoundException, request: WebRequest): ResponseEntity<ErrorResponse> {
+    fun handleNotFoundException(ex: NotFoundException): ResponseEntity<ErrorResponse> {
 
         val error = ErrorResponse(
             HttpStatus.NOT_FOUND.value(),
@@ -23,7 +26,7 @@ class ControllerAdvice {
     }
 
     @ExceptionHandler(BadRequestException::class)
-    fun handleBadRequestException(ex: BadRequestException, request: WebRequest): ResponseEntity<ErrorResponse> {
+    fun handleBadRequestException(ex: BadRequestException): ResponseEntity<ErrorResponse> {
 
         val error = ErrorResponse(
             HttpStatus.BAD_REQUEST.value(),
@@ -32,5 +35,30 @@ class ControllerAdvice {
         )
 
         return ResponseEntity(error, HttpStatus.BAD_REQUEST)
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun handleHttpMessageNotReadableException(ex: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
+
+        val error = ErrorResponse(
+            HttpStatus.UNPROCESSABLE_ENTITY.value(),
+            Errors.ML001.message,
+            Errors.ML001.code,
+            ex.bindingResult.fieldErrors.map { FieldErrorResponse(it.defaultMessage ?: "Invalid", it.field) }
+        )
+
+        return ResponseEntity(error, HttpStatus.UNPROCESSABLE_ENTITY)
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException::class)
+    fun handleDataIntegrityViolationException(ex: DataIntegrityViolationException): ResponseEntity<ErrorResponse> {
+
+        val error = ErrorResponse(
+            HttpStatus.UNPROCESSABLE_ENTITY.value(),
+            ex.message ?: "Invalid",
+            "ML-000"
+        )
+
+        return ResponseEntity(error, HttpStatus.UNPROCESSABLE_ENTITY)
     }
 }
