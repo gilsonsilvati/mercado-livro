@@ -49,9 +49,17 @@ class BookService(val bookRepository: BookRepository) {
 
         books.forEach { it.status = BookStatus.DELETED }
 
-        bookRepository.saveAll(books)
+        saveAll(books.toMutableList())
     }
 
     fun findAllByIds(bookIds: Set<Int>): List<BookModel> = bookRepository.findAllById(bookIds).toList()
+    fun purchase(books: MutableList<BookModel>) {
+
+        books.map { it.status = BookStatus.SOLD }
+
+        saveAll(books)
+    }
+
+    private fun saveAll(books: MutableList<BookModel>) = bookRepository.saveAll(books)
 
 }

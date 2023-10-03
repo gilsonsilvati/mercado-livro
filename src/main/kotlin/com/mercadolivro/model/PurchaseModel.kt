@@ -29,7 +29,7 @@ data class PurchaseModel(
         joinColumns = [JoinColumn(name = "purchase_id")],
         inverseJoinColumns = [JoinColumn(name = "book_id")]
     )
-    val books: List<BookModel>,
+    val books: MutableList<BookModel>,
 
     @Column(name = "create_at")
     val createAt: LocalDateTime = LocalDateTime.now(),
