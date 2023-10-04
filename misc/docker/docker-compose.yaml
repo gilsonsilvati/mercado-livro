@@ -3,9 +3,11 @@ version: '3'
 services:
   mysqlsrv:
     image: mysql
+    env_file:
+      - .env
     environment:
-      MYSQL_ROOT_PASSWORD: "MySql2023!"
-      MYSQL_DATABASE: "testedb"
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_DATABASE:
     ports:
       - "3306:3306"
     volumes:
