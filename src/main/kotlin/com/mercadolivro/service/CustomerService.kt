@@ -8,10 +8,15 @@ import com.mercadolivro.model.CustomerModel
 import com.mercadolivro.repository.CustomerRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
-class CustomerService(val customerRepository: CustomerRepository, val bookService: BookService) {
+class CustomerService(
+    private val customerRepository: CustomerRepository,
+    private val bookService: BookService,
+    private val bCrypt: BCryptPasswordEncoder
+) {
 
     fun findAll(name: String?, pageable: Pageable): Page<CustomerModel> {
 
@@ -25,7 +30,8 @@ class CustomerService(val customerRepository: CustomerRepository, val bookServic
     fun createOrUpdate(customer: CustomerModel) {
 
         val customerCopy = customer.copy(
-            roles = setOf(Profile.CUSTOMER)
+            roles = setOf(Profile.CUSTOMER),
+            password = bCrypt.encode(customer.password)
         )
 
         customerRepository.save(customerCopy)
